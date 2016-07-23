@@ -35,13 +35,12 @@ require([
       return 'https://api.flickr.com/services/feeds/photos_public.gne?tags=' +
         term + '&format=json&jsoncallback=?';
     };
-
-
+    
     var mediaUrl = _.compose(_.prop('m'), _.prop('media'));
 
-    var srcs = _.compose(_.map(mediaUrl), _.prop('items'));
+    var mediaToImg = _.compose(img, mediaUrl);
 
-    var images = _.compose(_.map(img), srcs);
+    var images = _.compose(_.map(mediaToImg), _.prop('items'));
 
     var renderImages = _.compose(Impure.setHTML('body'), images);
 
@@ -52,6 +51,9 @@ require([
   }
 );
 
+
+
+ 
 
 
 
